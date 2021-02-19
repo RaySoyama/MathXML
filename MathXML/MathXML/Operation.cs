@@ -2,7 +2,23 @@
 {
     class Operation
     {
-        public string operationType { get; private set; }
+        //If this system gets used often, the operation logic can be converted into a Strategy Pattern
+
+        /// <summary>
+        /// enums of handled math operations
+        /// </summary>
+        public enum OperationTypes
+        {
+            Invalid = -1,
+            Add = 0,
+            Subtract = 1,
+            Multiply = 2,
+            Divide = 3
+        }
+
+        public OperationTypes operationType { get; private set; }
+        public string operationXmlName { get; private set; }
+
         public string username { get; private set; }
         public string operationName { get; private set; }
         public string miscellaneousInfo { get; private set; }
@@ -10,9 +26,32 @@
         public float value1 { get; private set; }
         public float value2 { get; private set; }
 
+
+
         public Operation(string _operationType, string _username, string _operationName, string _miscellaneousInfo, float _Value1, float _Value2)
         {
-            operationType = _operationType;
+            operationXmlName = _operationType;
+
+            switch (_operationType)
+            {
+                case "Add":
+                    operationType = OperationTypes.Add;
+                    break;
+                case "Subtract":
+                    operationType = OperationTypes.Subtract;
+                    break;
+                case "Multiply":
+                    operationType = OperationTypes.Multiply;
+                    break;
+                case "Divide":
+                    operationType = OperationTypes.Divide;
+                    break;
+                default:
+                    operationType = OperationTypes.Invalid;
+                    System.Console.WriteLine($"{operationXmlName} is not a valid operation type");
+                    break;
+            }
+
             username = _username;
             operationName = _operationName;
             miscellaneousInfo = _miscellaneousInfo;
@@ -20,41 +59,81 @@
             value2 = _Value2;
         }
 
+        /// <summary>
+        /// Returns a result of applying the operation to Value1 and Value2. If the operation is not supported, it will return 0.0f and print an error to the console
+        /// </summary>
+        /// <returns></returns>
         public float Calculate()
         {
+            float result = 0.0f;
+
             switch (operationType)
             {
-                case "Add":
-                    return Add();
-                case "Subtract":
-                    return Subtract();
-                case "Multiply":
-                    return Multiply();
-                case "Divide":
-                    return Divide();
-                default:
-                    System.Console.WriteLine($"{operationType} is not a valid operation type");
-                    return 0;
+                case OperationTypes.Invalid:
+                    System.Console.WriteLine($"{operationXmlName} is not a valid operation type");
+                    result = 0.0f;
+                    break;
+                case OperationTypes.Add:
+                    result = Add();
+                    break;
+                case OperationTypes.Subtract:
+                    result = Subtract();
+                    break;
+                case OperationTypes.Multiply:
+                    result = Multiply();
+                    break;
+                case OperationTypes.Divide:
+                    result = Divide();
+                    break;
             }
+
+            return result;
         }
 
+        /// <summary>
+        /// Returns the corresponding character to the operationType. If the operation is not supported, it will return "N/A" and print an error to the console
+        /// </summary>
+        /// <returns></returns>
         public string OperationSymbol()
         {
+            string symbol = "";
+
             switch (operationType)
             {
-                case "Add":
-                    return "+";
-                case "Subtract":
-                    return "-";
-                case "Multiply":
-                    return "*";
-                case "Divide":
-                    return "/";
-                default:
-                    System.Console.WriteLine($"{operationType} is not a valid operation type");
-                    return "N/A";
+                case OperationTypes.Invalid:
+                    System.Console.WriteLine($"{operationXmlName} is not a valid operation type");
+                    symbol = "N/A";
+                    break;
+                case OperationTypes.Add:
+                    symbol = "+";
+                    break;
+                case OperationTypes.Subtract:
+                    symbol = "-";
+                    break;
+                case OperationTypes.Multiply:
+                    symbol = "*";
+                    break;
+                case OperationTypes.Divide:
+                    symbol = "/";
+                    break;
             }
+            return symbol;
         }
+
+        /// <summary>
+        /// Returns a formated string of the operation
+        /// </summary>
+        /// <returns></returns>
+        public string CreateOutput()
+        {
+            if (operationType == OperationTypes.Invalid)
+            {
+                return $"{operationXmlName} is not a valid operation type";
+            }
+
+            return $"{username} - {operationName} - {value1}{OperationSymbol()}{value2} = {Calculate()}";
+        }
+
 
         private float Add()
         {

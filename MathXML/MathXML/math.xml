@@ -34,9 +34,4 @@
     <Value1>Twenty</Value1>
     <Value2>30</Value2>
   </Add>
-  <Add>
-    <Description>Fox;SUM;T10</Description>
-    <Value1>5</Value1>
-    <Value2>5</Value2>
-  </Add>
 </Operations>

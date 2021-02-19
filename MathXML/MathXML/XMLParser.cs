@@ -6,19 +6,32 @@ namespace MathXML
 {
     class XMLParser
     {
+        /// <summary>
+        /// Takes a XML file name and parses it into a List of Operation. If there are any syntax errors in the XML file, it will write the issue to the console.
+        /// </summary>
+        /// <param name="fileName">XML file name</param>
+        /// <returns>List of Operation</returns>
         public static List<Operation> LoadXML(string fileName)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(fileName);
-
             List<Operation> output = new List<Operation>();
+
+            XmlDocument doc = new XmlDocument();
+            try
+            {
+                doc.Load(fileName);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return output;
+            }
 
             string operationType = "";
             string username = "";
             string operationName = "";
             string miscellaneousInfo = "";
-            float Value1 = 0;
-            float Value2 = 0;
+            float value1 = 0.0f;
+            float value2 = 0.0f;
 
             foreach (XmlNode operations in doc.DocumentElement)
             {
@@ -52,7 +65,7 @@ namespace MathXML
                 {
                     Console.WriteLine($"Missing data for Value1 for Operation \"{operationType}\"");
                 }
-                else if (float.TryParse(operations["Value1"].InnerText, out Value1) == false)
+                else if (float.TryParse(operations["Value1"].InnerText, out value1) == false)
                 {
                     Console.WriteLine($"Invalid formatting for Value1 \"{operations["Value1"].InnerText}\" for Operation \"{operationType}\"");
                     continue;
@@ -62,13 +75,13 @@ namespace MathXML
                 {
                     Console.WriteLine($"Missing data for Value2 for Operation \"{operationType}\"");
                 }
-                else if (float.TryParse(operations["Value2"].InnerText, out Value2) == false)
+                else if (float.TryParse(operations["Value2"].InnerText, out value2) == false)
                 {
                     Console.WriteLine($"Invalid formatting for Value2 \"{operations["Value2"].InnerText}\" for Operation \"{operationType}\"");
                     continue;
                 }
 
-                output.Add(new Operation(operationType, username, operationName, miscellaneousInfo, Value1, Value2));
+                output.Add(new Operation(operationType, username, operationName, miscellaneousInfo, value1, value2));
             }
 
             return output;
