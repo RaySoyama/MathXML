@@ -1,0 +1,22 @@
+﻿Using this as a place to jot down notes, and also to write down my thoughts so who ever is reading this can understand my work-flow/thought process.
+
+After reading the test description doc, here are a few things that came to mind.
+
+- I have never parsed a XML before, I wonder hard hard this wil be.
+- The "object" that the XML will be parsed into will be very simple, just (so far) 4 different values.
+- Each "calculation" is actually wrapped by a "redundant" <Add></Add> tag, so I'm curious on what that should mean
+
+After looking over the math.xml file, I noticed
+
+- Some descriptions end with a semi-colon, others don't.
+- Some are missing the "Miscellaneous info" 
+
+
+Here is how I will structure my code
+- Parse XML to a List of Objects ("hard part")
+- Do operations, and print to console
+- How to handle bad input
+- Are the values floats of ints? (I used floats, I also couldn't really tell because there was no example output of the division calculations)
+
+Mid Programming
+- I wanted to use some inheritance to for the operation data class, but parsing it into different operations is going to be a pain, so I'm just going to handle that in the operation class itself
