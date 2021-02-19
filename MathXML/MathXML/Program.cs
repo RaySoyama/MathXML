@@ -1,5 +1,4 @@
-﻿using MathXML.Operations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace MathXML
@@ -14,7 +13,7 @@ namespace MathXML
             //Print Output
             foreach (Operation operation in listOfOperations)
             {
-                Console.WriteLine($"{operation.username} - {operation.operationName} - {operation.Value1}{operation.OperationSymbol()}{operation.Value2} = {operation.Calculate()}");
+                Console.WriteLine($"{operation.username} - {operation.operationName} - {operation.value1}{operation.OperationSymbol()}{operation.value2} = {operation.Calculate()}");
             }
 
             while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter))

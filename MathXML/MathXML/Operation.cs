@@ -1,4 +1,4 @@
-﻿namespace MathXML.Operations
+﻿namespace MathXML
 {
     class Operation
     {
@@ -7,8 +7,8 @@
         public string operationName { get; private set; }
         public string miscellaneousInfo { get; private set; }
 
-        public float Value1 { get; private set; }
-        public float Value2 { get; private set; }
+        public float value1 { get; private set; }
+        public float value2 { get; private set; }
 
         public Operation(string _operationType, string _username, string _operationName, string _miscellaneousInfo, float _Value1, float _Value2)
         {
@@ -16,8 +16,8 @@
             username = _username;
             operationName = _operationName;
             miscellaneousInfo = _miscellaneousInfo;
-            Value1 = _Value1;
-            Value2 = _Value2;
+            value1 = _Value1;
+            value2 = _Value2;
         }
 
         public float Calculate()
@@ -58,22 +58,22 @@
 
         private float Add()
         {
-            return Value1 + Value2;
+            return value1 + value2;
         }
 
         private float Subtract()
         {
-            return Value1 - Value2;
+            return value1 - value2;
         }
 
         private float Multiply()
         {
-            return Value1 * Value2;
+            return value1 * value2;
         }
 
         private float Divide()
         {
-            return Value1 / Value2;
+            return value1 / value2;
         }
     }
 }

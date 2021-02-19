@@ -1,5 +1,4 @@
-﻿using MathXML.Operations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -14,16 +13,15 @@ namespace MathXML
 
             List<Operation> output = new List<Operation>();
 
+            string operationType = "";
+            string username = "";
+            string operationName = "";
+            string miscellaneousInfo = "";
+            float Value1 = 0;
+            float Value2 = 0;
+
             foreach (XmlNode operations in doc.DocumentElement)
             {
-                string operationType = "";
-                string username = "";
-                string operationName = "";
-                string miscellaneousInfo = "";
-                float Value1 = 0;
-                float Value2 = 0;
-
-
                 operationType = operations.Name;
 
                 //Parse Description node
@@ -41,7 +39,7 @@ namespace MathXML
                     continue;
                 }
 
-                username = descriptionRawText[0]; ;
+                username = descriptionRawText[0];
                 operationName = descriptionRawText[1];
 
                 if (descriptionRawText.Length > 2) //misc info is optional
